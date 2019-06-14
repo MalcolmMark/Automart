@@ -6,7 +6,7 @@
   "scripts": {
     "prod": "node server/index.js",
     "start": "babel-watch server/index.js",
-    "test": "mocha tests"
+    "test": "mocha tests --exit"
   },
   "author": "",
   "engines": {
