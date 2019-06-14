@@ -1,5 +1,5 @@
 const { User, users } = require('../models/user.model');
-const { signInValid } = require('../middleware/validate.middleware');
+const { signInValid, signUpValid } = require('../middleware/validate.middleware');
 
 signIn = (req, res) => {
     console.log(req.body);
@@ -25,7 +25,13 @@ signIn = (req, res) => {
 
 
 signUp = (req, res) => {
-    
+    const { error } = signUpValid(req.body);
+    if (error) {
+        return res.status(404).send({
+            'status': 404,
+            'message': error.details[0].message
+        });
+    }
     const user = new User(
         req.body.first_name,
         req.body.last_name,
@@ -37,7 +43,8 @@ signUp = (req, res) => {
 
     users.push(user);
 
-    res.send({
+    res.status(201).send({
+        'status':res.statusCode,
         'message': users.length > 0 ? 'User is created' : 'Failed to create user',
     });
 

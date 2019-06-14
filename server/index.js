@@ -19,3 +19,5 @@ app.use('/api/v1/car', car_routes);
 app.listen(PORT, () => {
     console.log(`Server is running on PORT ${PORT}`);
 });
+
+module.exports = app;
