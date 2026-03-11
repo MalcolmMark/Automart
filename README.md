@@ -1,65 +1,113 @@
-# Automart
-Auto Mart is an online marketplace for automobiles of diverse makes, model or body type. With
-Auto Mart, users can sell their cars or buy from trusted dealerships or private sellers.
-https://malcolmmark.github.io/Automart/
-[![Build Status](https://travis-ci.org/MalcolmMark/Automart.svg?branch=develop)](https://travis-ci.org/MalcolmMark/Automart) [![Coverage Status](https://coveralls.io/repos/github/MalcolmMark/Automart/badge.svg?branch=develop)](https://coveralls.io/github/MalcolmMark/Automart?branch=develop)
+# Automart (Flask Backend v1)
 
-# Required Features
-- User can sign up.
-- User can sign in.
-- User (seller) can post a car sale advertisement.
-- User (buyer) can make a purchase order.
-- User (buyer) can update the price of his/her purchase order.
-- User (seller) can mark his/her posted AD as sold.
-- User (seller) can update the price of his/her posted AD.
-- User can view a specific car.
-- User can view all unsold cars.
-- User can view all unsold cars within a price range.
-- Admin can delete a posted AD record.
-- Admin can view all posted ads whether sold or unsold.
+This repository now includes a clean **Flask + SQLAlchemy + SQLite** backend v1 for Automart.
+It delivers the minimal product spine for authentication and car listings so you can build a credible prototype quickly.
 
-# Technologies
-- Node JS
+## Stack decision
+- Flask
+- SQLAlchemy
+- SQLite
 
+## Backend v1 location
+All new backend files are in:
 
-# Requirements and Installation
- To install and run this project you would need to have listed stack installed:
+- `backend_v1/`
 
-# Node Js To run:
+## Core data models
 
-- Make sure you run the project admin and user in the different browsers of your choice
-    git clone (In Gitbash press shift + insert to put my repo url)
-    see this: 
-    
-    git clone <https://github.com/MalcolmMark/Automart.git>
-    cd Automart
+### User
+- `id`
+- `name`
+- `email`
+- `password_hash`
+- `phone`
+- `role`
 
+### Listing
+- `id`
+- `title`
+- `make`
+- `model`
+- `year`
+- `price`
+- `mileage`
+- `transmission`
+- `fuel_type`
+- `body_type`
+- `location`
+- `condition`
+- `description`
+- `image_url`
+- `seller_id`
+- `created_at`
 
-# Testing
+## API endpoints (exact v1 scope)
 
+### Auth
+- `POST /api/auth/register`
+- `POST /api/auth/login`
+- `GET /api/auth/profile`
 
-# API-END POINTS
-. V1
+### Listings
+- `GET /api/listings`
+- `GET /api/listings/<id>`
+- `POST /api/listings`
+- `PUT /api/listings/<id>`
+- `DELETE /api/listings/<id>`
 
+## Quick start
 
-# Pivotal Tracker Stories
+```bash
+cd backend_v1
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python run.py
+```
 
-    https://www.pivotaltracker.com/n/projects/2349070
+App runs on `http://localhost:5000`.
 
+## Seed sample Ugandan listings
 
-# Template UI
+```bash
+cd backend_v1
+source .venv/bin/activate
+python seed.py
+```
 
-    Check out my site published / hosted at https://malcolmmark.github.io/Automart/
+This seeds:
+- demo seller account: `seller@automart.ug` / `password123`
+- sample listings in Kampala and Entebbe.
 
-# API
+## Run tests
 
-    Automart API is still in verion 1 (V1) and is hosted on Heroku at https://
+```bash
+cd backend_v1
+source .venv/bin/activate
+pytest -q
+```
 
-# API Documentation
+## 3-day execution plan
 
-    https://
+### Day 1 — stop the mess
+- ✅ Clean backend v1 structure
+- ✅ Define models
+- ✅ Build registration/login/profile
+- ✅ Add tests
 
-# Author
+### Day 2 — real product flow
+- ✅ Listing model implemented
+- ✅ Post/get/update/delete listings endpoints
+- ⏭ Connect marketplace and post-car pages to backend
 
-    Malcolm Mark Okabo
-    email: malcolmmarkokabo@gmail.com
+### Day 3 — believable startup polish
+- ⏭ Listing details page wiring
+- ⏭ Seller dashboard showing seller listings
+- ✅ Image URL support in listing schema
+- ✅ Basic validation
+- ✅ Seed sample Uganda listings
+- ⏭ UI cleanup + deploy
+
+## Notes
+- Legacy Node code is still present for historical reference.
+- New work should target `backend_v1/`.
